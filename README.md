@@ -1,2 +1,2 @@
 # rsuite-container-utils-lib
-RSuite library of container utility code.
+RSuite Java library of container utilities.
