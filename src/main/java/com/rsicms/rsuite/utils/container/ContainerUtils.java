@@ -10,10 +10,14 @@ import com.reallysi.rsuite.api.ContentAssembly;
 import com.reallysi.rsuite.api.ContentAssemblyNodeContainer;
 import com.reallysi.rsuite.api.ManagedObject;
 import com.reallysi.rsuite.api.MetaDataItem;
+import com.reallysi.rsuite.api.ObjectType;
 import com.reallysi.rsuite.api.RSuiteException;
 import com.reallysi.rsuite.api.User;
+import com.reallysi.rsuite.api.content.ContentDisplayObject;
+import com.reallysi.rsuite.api.content.ContentObjectPath;
 import com.reallysi.rsuite.api.control.ObjectDestroyOptions;
 import com.reallysi.rsuite.api.extensions.ExecutionContext;
+import com.reallysi.rsuite.service.ContentAssemblyService;
 import com.reallysi.rsuite.service.ManagedObjectService;
 import com.rsicms.rsuite.utils.container.visitor.ListReferencedContentContainerVisitor;
 import com.rsicms.rsuite.utils.mo.MOUtils;
@@ -180,6 +184,37 @@ public class ContainerUtils {
       return true;
     }
     return false;
+  }
+
+  /**
+   * Working backwards, get the first container in the content object path's objects with the
+   * specified container type. When the container type is blank, the first container is returned.
+   * 
+   * @param caService
+   * @param user
+   * @param contentObjectPath
+   * @param containerType An optional requirement for the container. When blank, the first container
+   *        is accepted.
+   * @return The first qualifying container, or null when there isn't one.
+   * @throws RSuiteException
+   */
+  public static ContentAssemblyNodeContainer getContentAssemblyNodeContainer(
+      ContentAssemblyService caService, User user, ContentObjectPath contentObjectPath,
+      String containerType) throws RSuiteException {
+    // Determine the container by walking up the request's path objects until reaching a container
+    // of the correct type.
+    ContentAssemblyNodeContainer container;
+    List<ContentDisplayObject> cdoList = contentObjectPath.getPathObjects();
+    for (int i = cdoList.size() - 1; i > 0; i--) {
+      if (ObjectType.CONTENT_ASSEMBLY_REF == cdoList.get(i).getManagedObject().getObjectType()) {
+        container = caService.getContentAssemblyNodeContainer(user,
+            cdoList.get(i).getManagedObject().getTargetId());
+        if (StringUtils.isBlank(containerType) || container.getType().equals(containerType)) {
+          return container;
+        }
+      }
+    }
+    return null;
   }
 
   /**
