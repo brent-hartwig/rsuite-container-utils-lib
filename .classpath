@@ -16,7 +16,7 @@
 	<classpathentry kind="lib" path="java/lib/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="java/lib/rsuite-api-4.1.14.jar"/>
 	<classpathentry kind="lib" path="java/lib/rsuite-message-props-lib-0.0.1.jar"/>
-	<classpathentry kind="lib" path="java/lib/rsuite-mo-utils-lib-0.0.1.jar"/>
 	<classpathentry kind="lib" path="java/lib/rsuite-operation-lib-0.0.1.jar"/>
+	<classpathentry kind="lib" path="java/lib/rsuite-mo-utils-lib-1.0.1.jar"/>
 	<classpathentry kind="output" path="target"/>
 </classpath>

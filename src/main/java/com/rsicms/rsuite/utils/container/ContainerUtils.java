@@ -121,11 +121,12 @@ public class ContainerUtils {
      * 3rd: delete the MOs, which are no longer referenced by the containers deleted above.
      */
     if (visitor.getReferencedManagedObjects() != null) {
+      MOUtils moUtils = new MOUtils();
       for (ManagedObject mo : visitor.getReferencedManagedObjects()) {
         result.addInfoMessage(ContainerUtilsMessageProperties.get("info.deleting.object",
             mo.getDisplayName(), mo.getId()));
         try {
-          MOUtils.checkout(context, user, mo.getId());
+          moUtils.checkout(context, user, mo.getId());
           moService.destroy(user, mo.getId(), options);
         } catch (RSuiteException e) {
           result.addWarning(e);
