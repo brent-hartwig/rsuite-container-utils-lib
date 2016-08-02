@@ -9,8 +9,8 @@ import com.rsicms.rsuite.utils.messsageProps.LibraryMessageProperties;
  */
 public class ContainerUtilsMessageProperties extends LibraryMessageProperties {
 
-	public ContainerUtilsMessageProperties() throws IOException {
-		super(ContainerUtilsMessageProperties.class);
-	}
+  public ContainerUtilsMessageProperties() throws IOException {
+    super(ContainerUtilsMessageProperties.class);
+  }
 
 }
