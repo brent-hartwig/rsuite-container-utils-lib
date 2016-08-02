@@ -41,8 +41,8 @@ public class ContainerUtils {
    * @return LMD value or null when the requested LMD isn't set on the specified container.
    * @throws RSuiteException
    */
-  public static String getLayeredMetadataValue(ContentAssemblyNodeContainer container,
-      String lmdName) throws RSuiteException {
+  public String getLayeredMetadataValue(ContentAssemblyNodeContainer container, String lmdName)
+      throws RSuiteException {
     if (container != null && container.getMetaDataItems() != null
         && StringUtils.isNotBlank(lmdName)) {
       for (MetaDataItem item : container.getMetaDataItems()) {
@@ -71,8 +71,8 @@ public class ContainerUtils {
    * @throws RSuiteException Thrown if unable to complete the operation successfully. A possible
    *         outcome is that some of the objects were destroyed, but not all.
    */
-  public static OperationResult deleteContainerAndReferencedContent(ExecutionContext context,
-      User user, ContentAssemblyNodeContainer container, Log log) throws RSuiteException {
+  public OperationResult deleteContainerAndReferencedContent(ExecutionContext context, User user,
+      ContentAssemblyNodeContainer container, Log log) throws RSuiteException {
 
     OperationResult result = new BaseOperationResult(context.getIDGenerator().allocateId(),
         "delete", log == null ? ContainerUtils.log : log);
@@ -151,7 +151,7 @@ public class ContainerUtils {
    * @param log
    * @throws RSuiteException
    */
-  public static void deleteContainer(ExecutionContext context, User user,
+  public void deleteContainer(ExecutionContext context, User user,
       ContentAssemblyNodeContainer container, Log log) throws RSuiteException {
     if (container instanceof ContentAssembly) {
       context.getContentAssemblyService().removeContentAssembly(user, container.getId());
@@ -171,7 +171,7 @@ public class ContainerUtils {
    *         rename is not necessary, the method doesn't bother trying and returns false.
    * @throws RSuiteException
    */
-  public static boolean renameContainer(ExecutionContext context, User user,
+  public boolean renameContainer(ExecutionContext context, User user,
       ContentAssemblyNodeContainer container, String name) throws RSuiteException {
     // Only proceed if we were given a container, the name isn't blank, and
     // the name is different.
@@ -199,7 +199,7 @@ public class ContainerUtils {
    * @return The first qualifying container, or null when there isn't one.
    * @throws RSuiteException
    */
-  public static ContentAssemblyNodeContainer getContentAssemblyNodeContainer(
+  public ContentAssemblyNodeContainer getContentAssemblyNodeContainer(
       ContentAssemblyService caService, User user, ContentObjectPath contentObjectPath,
       String containerType) throws RSuiteException {
     // Determine the container by walking up the request's path objects until reaching a container
@@ -233,7 +233,7 @@ public class ContainerUtils {
    * @return The first qualifying MO, or null when there isn't a qualifying MO.
    * @throws RSuiteException
    */
-  public static ManagedObject getFirstQualifyingReferencedManagedObject(ExecutionContext context,
+  public ManagedObject getFirstQualifyingReferencedManagedObject(ExecutionContext context,
       User user, ContentAssemblyNodeContainer container, ManagedObjectQualifier moQualifier)
       throws RSuiteException {
 
@@ -275,7 +275,7 @@ public class ContainerUtils {
    *         the specified child. Containers are not returned.
    * @throws RSuiteException
    */
-  public static ManagedObject getSiblingManagedObject(ExecutionContext context, User user,
+  public ManagedObject getSiblingManagedObject(ExecutionContext context, User user,
       ContentAssemblyNodeContainer container, String childId, boolean previous)
       throws RSuiteException {
     ListReferencedContentContainerVisitor visitor =
